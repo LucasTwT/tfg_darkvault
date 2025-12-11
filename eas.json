@@ -6,6 +6,9 @@
   "build": {
     "development": {
       "developmentClient": true,
+      "env":{
+        "ENVFILE": ".env.development"
+      },
       "distribution": "internal"
     },
     "preview": {
