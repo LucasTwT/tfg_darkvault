@@ -21,8 +21,9 @@ export function CreateOrModifyVault ({vault} : {vault?: Vault}) {
     const { t } = useTranslation()
     const theme = useTheme()
     const modifyOrCreate = vault ? "modify" : "create"
-    useCreateVault({setError: setVaultError, vault: state.vaultPreview})
-    useModifyVault({vault, initVault, modify: vault ? true : false, setError: setVaultError, t: t})
+    const modify = vault ? true : false
+    useCreateVault({setError: setVaultError, vault: state.vaultPreview, modify: modify})
+    useModifyVault({vault: vault, updatedVault: state.vaultPreview, initVault, modify: modify, setError: setVaultError, t: t})
     return (
         <BottomSheetView style={{height: "100%", gap: RFValue(20), padding: RFValue(40)}}>
             <HeaderView>

@@ -3,7 +3,7 @@ import { IP } from "../constants/constants";
 
 export async function requestModifyVault(access_token: string, vault: Vault) {
        try {
-            const content = JSON.stringify({vault_name: vault.name, vault_config: vault.settings})
+            const content = JSON.stringify({new_data: vault})
             const response = await fetch(`http://${IP}:8000/vault/${vault.id}`, {
                 method: "PATCH",
                 headers: {

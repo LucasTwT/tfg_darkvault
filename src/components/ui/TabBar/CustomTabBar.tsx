@@ -31,7 +31,7 @@ export default function MyCustomGlassTabBar({ state, descriptors, navigation }) 
         
         return <ButtonTabBar isFocused={isFocused} key={route.key} icon={TabBarIcons[route.name]} onPress={() => { navigation.navigate(route.name)}} />
   })}
-  <ButtonTabBar isFocused={false} icon='plus' onPress={() => openSheet(<BottomSheetCreate/>, {dynamicSizing: true, snapPoints: undefined, handleComponent: undefined}, {btnTxt: "Create vault", status: false})}/>
+  <ButtonTabBar isFocused={false} icon='plus' onPress={() => openSheet(<BottomSheetCreate/>, {dynamicSizing: true, snapPoints: undefined, handleComponent: undefined})}/>
     </ImageBackground>
   );
 }

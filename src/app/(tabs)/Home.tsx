@@ -1,7 +1,7 @@
 import { FilterInputText } from "@/src/components/ui/FilterInputText";
 import { CustomIconButton } from "@/src/components/ui/Buttons/CustomIconButton";
 import { MainView, TextTitle } from "@/src/styles/auth/styles";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, Text, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -10,36 +10,22 @@ import Popover, { PopoverPlacement } from "react-native-popover-view";
 import { PopOverContent } from "@/src/components/ui/PopOver/PopOverContent";
 import { VaultGrid } from "@/src/components/ui/Grids/VaultGrid";
 import { useTheme } from "styled-components/native";
-import { useAppStore } from "@/src/store/useAppStore";
-import { getVaults } from "@/src/services/api/Vault/getVaults";
-import { useGlobalStore } from "@/src/store/globalStore";
 import { useBottomSheetStore } from "@/src/store/useBottomSheet";
 import { CreateOrModifyVault } from "@/src/components/ui/BottomSheet/CreateVault/CreateOrModifyVault";
 import HandleComponent from "@/src/components/ui/BottomSheet/HandleComponent";
+import { useHome } from "@/src/hooks/Home/useHome";
 
 export default function Home() {
     const theme = useTheme()
     const [filterVal, setFilterVal] = useState('')
-    const [visible, setVisible] = useState(false)
+    const [ visible ] = useState(false)
     const { openSheet } = useBottomSheetStore()
     const imgUrl = theme.dark ? require("@/src/assets/images/iconBlackBackground5.png") : require("@/src/assets/images/iconWhiteBackground.png")
     const { t } = useTranslation()
     const { state, setFilterOptions, setVaultOptions, initFilterOptions, initVaultOptions, filterVaults } = useHomeReducer()
-    const { userVaults, initUserVaults } = useAppStore()
     const snapPoints = useMemo(() => ["90%"], [])
-    const { access_token } = useGlobalStore()
-    useEffect(() => {
-        initFilterOptions([{name: t('tabs.home.filterField.modalOptions.byName'), status: true, tags: "name"}, {name: t('tabs.home.filterField.modalOptions.byDate'), status: false, tags: "updated_at"}])
-        initVaultOptions([{name: t('tabs.home.vaults.modalOptions.show'), status: true, tags: "show"}, {name: t('tabs.home.vaults.modalOptions.modify'), status: false, tags: "modify"}, {name: t('tabs.home.vaults.modalOptions.delete'), status: false, tags: "delete"}])
-        getVaults(access_token).then(({response, status}) => {
-            if (status === 200)
-                initUserVaults(response.vaults)
-        })
-    }, [])
 
-    useEffect(() => {
-        filterVaults({vaults: userVaults, inputValue: filterVal})
-    }, [filterVal, setFilterVal, userVaults])
+    useHome({initFilterOptions: initFilterOptions, initVaultOptions: initVaultOptions, filterVal: filterVal, filterVaults: filterVaults, setFilterVal: setFilterVal, t: t})
 
     return (
         <MainView style={{ gap: RFValue(34)}}>

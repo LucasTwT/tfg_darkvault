@@ -7,7 +7,7 @@ import { useBottomSheetStore } from "@/src/store/useBottomSheet";
 import { validateModifyVaultName } from "@/src/utils/validations/Modify";
 import { useEffect } from "react";
 
-export function useModifyVault ({modify, vault, initVault, t, setError} : {modify: boolean, vault?: Vault, initVault: (payload: {vault: Vault}) => void, t: any, setError: (error: UpdatePayload) => void}) {
+export function useModifyVault ({modify, vault, updatedVault, initVault, t, setError} : {modify: boolean, vault?: Vault, updatedVault?: Vault, initVault: (payload: {vault: Vault}) => void, t: any, setError: (error: UpdatePayload) => void}) {
 
     const { userVaults, modifyVault } = useAppStore()
     const { access_token } = useGlobalStore()
@@ -21,19 +21,20 @@ export function useModifyVault ({modify, vault, initVault, t, setError} : {modif
 
     // Verify vault data
     useEffect(() => {
-        if (!modify || !vault ) return
-        setError({field: "name", value: validateModifyVaultName(vault, t, userVaults)})
-    }, [modify, vault, userVaults, setError, t]) 
+        if (!modify || !updatedVault ) return
+        setError({field: "name", value: validateModifyVaultName(updatedVault, t, userVaults)})
+    }, [modify, updatedVault, userVaults, setError, t]) 
 
     // Send to server
     useEffect(() => {
-        if (!modify || !vault ) return
-        const error = validateModifyVaultName(vault, t, userVaults)
+        if (!modify || !updatedVault || !contentHandle?.status) return
+        const error = validateModifyVaultName(updatedVault, t, userVaults)
         setError({field: "name", value: error})        
         if (error !== "") return
 
-        requestModifyVault(access_token, vault).then(({response, status}) => {
-            if (status === 202) modifyVault(vault)
+        requestModifyVault(access_token, updatedVault).then(({response, status}) => {
+            console.log(updatedVault)
+            if (status === 202) modifyVault(updatedVault)
         })
 
     }, [contentHandle])

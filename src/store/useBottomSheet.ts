@@ -4,18 +4,24 @@ import { BottomSheetState } from "./useBottomSheetTypes.d"
 export const useBottomSheetStore = create<BottomSheetState>((set, get) => ({
   bottomSheetRef: { current: null },
   content: null,
-  action: null,
   contentHandle: null,
   props: {
     dynamicSizing: true
   },
-  openSheet: (content, props, contentHandleData) => {
-    const { bottomSheetRef } = useBottomSheetStore.getState();
-    props && set({props})
-    contentHandleData && set({contentHandle: contentHandleData})
+openSheet: (content, props, contentHandleData) => {
+  const { bottomSheetRef } = useBottomSheetStore.getState();
+
+  set({
+    content,
+    props: props ?? {},
+    contentHandle: contentHandleData ?? null
+  });
+requestAnimationFrame(() => {
     bottomSheetRef.current?.snapToIndex(0);
-    set({ content });
-  },
+  });
+},
+
+
   closeSheet: () => {
     const { bottomSheetRef } = useBottomSheetStore.getState();
     bottomSheetRef.current?.close();

@@ -21,7 +21,7 @@ export function BottomSheetCreate () {
                     <Text style={{ color: styles.handleIndicatorText, fontFamily: "lexendGigaMedium", fontSize: RFValue(12) }}>Create</Text>
                 </BottomSheetView>
                 <BottomSheetView style={{ padding: RFValue(20) }}>
-                    <TouchableOpacity onPress={() => openSheet(<CreateOrModifyVault/>, {dynamicSizing: false, snapPoints: snapPoints, handleComponent: HandleComponent})}>
+                    <TouchableOpacity onPress={() => openSheet(<CreateOrModifyVault/>, {dynamicSizing: false, snapPoints: snapPoints, handleComponent: HandleComponent}, {btnTxt: "Create vault", status: false})}>
                         <BottomSheetElement actionName={t("create.bottomSheetCreate.vault.title")} description={t("create.bottomSheetCreate.vault.description")} image={require("@/src/assets/images/vaultIcon.png")} color={styles.icColor} />
                     </TouchableOpacity>
                     <BottomSheetElement actionName={t("create.bottomSheetCreate.login.title")} description={t("create.bottomSheetCreate.login.description")} icon={"user"} color={styles.icColor} />
