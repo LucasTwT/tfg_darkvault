@@ -1,10 +1,9 @@
-import { Background } from "@react-navigation/elements";
 import { palette } from "./colors";
 
 export const lightTheme = {
     dark: false,
     colors: {
-        background: palette.neutral200,
+        background: palette.neutral50,
         textTitle: palette.primary800,
         iconBackground: palette.neutral600,
         spinner: palette.primary800
@@ -27,9 +26,9 @@ export const lightTheme = {
     },
 
     icButtons: {
-                background: palette.primary800a,
-                icColor: palette.primary100,
-                shadowColor: palette.shadowIcButton
+                background: palette.neutral500a,
+                icColor: palette.neutral900,
+                shadowColor: palette.neutral50
     },
     link: {
         text: palette.primary800,
@@ -46,20 +45,44 @@ export const lightTheme = {
         }
     },
     popOver: {
-            background: palette.neutral500a,
+            background: palette.neutral50,
             itemBackgroundSelected: palette.neutral900a,
             borderColor: palette.ultraWhite,
             ic: palette.neutral900,
             text: palette.neutral900
         },
     grid: {
-        background: palette.neutral50,
         textColor: palette.neutral900,
-        shadowColor: palette.ultraWhite,
         element: {
             borderColor: palette.ultraWhite,
             icColor: palette.neutral900
         }
+    },
+    bottomActionSheet: {
+        background: palette.neutral50,
+        handleIndicatorColor: palette.neutral900,
+        handleIndicatorText: palette.neutral900,
+        icColor: palette.neutral900,
+        actionName: palette.neutral900,
+        description: palette.neutral600,
+        borderBottom: palette.neutral300
+    },
+
+    customHandleComponent: {
+        btnClose: {
+            background: "rgba(131, 144, 250, .25)",
+            icColor: "rgb(131, 144, 250)",
+        },
+        btnAction: {
+            background: "rgb(131, 144, 250)",
+            textColor: palette.neutral50
+        }
+    },
+
+    itemGrid: {
+        background: palette.neutral50,
+        borderColor: palette.neutral900,
+        icColor: palette.neutral800
     }
 }
 

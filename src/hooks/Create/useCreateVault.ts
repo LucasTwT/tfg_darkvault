@@ -1,7 +1,6 @@
 import { Vault } from "@/src/reducers/Home/useHome.d";
 import { requestCreateVault } from "@/src/services/api/Vault/createVault";
 import { getVaults } from "@/src/services/api/Vault/getVaults";
-import { useGlobalStore } from "@/src/store/globalStore";
 import { useAppStore } from "@/src/store/useAppStore";
 import { useBottomSheetStore } from "@/src/store/useBottomSheet";
 import { validateVaultName } from "@/src/utils/validations/Create";
@@ -10,14 +9,13 @@ import { useTranslation } from "react-i18next";
 
 export function useCreateVault({vault, setError, modify} : {vault: Vault, setError: (payload: any) => void, modify: boolean}) {
     const { userVaults,  initUserVaults } = useAppStore()
-    const { access_token } = useGlobalStore()
     const { t } = useTranslation()
     const { contentHandle } = useBottomSheetStore()
         
     useEffect(() => {
         if (modify) return
         const error = validateVaultName(vault.name, t, userVaults);
-        setError(error);
+        setError({field: "name", value: error})
     }, [vault.name, userVaults, modify]);
 
   useEffect(() => {
@@ -28,10 +26,10 @@ export function useCreateVault({vault, setError, modify} : {vault: Vault, setErr
 
     if (error !== "") return;
 
-    requestCreateVault(access_token, vault).then(({ response, status }) => {
+    requestCreateVault(vault).then(({ response, status }) => {
       if (status === 201) {
          if (contentHandle?.status){
-            getVaults(access_token).then(({ response, status }) => {
+            getVaults().then(({ response, status }) => {
                 if (status === 200)
                     initUserVaults(response.vaults)
             })

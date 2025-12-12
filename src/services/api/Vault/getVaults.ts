@@ -1,12 +1,12 @@
+import { apiFetch } from "@/src/utils/helper/apiFetch";
 import { IP } from "../constants/constants";
 
-export async function getVaults(access_token: string) {
+export async function getVaults() {
        try {
-            const response = await fetch(`http://${IP}:8000/vault/all`, {
+            const response = await apiFetch(`http://${IP}:8000/vault/all`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${access_token}`
                 },
             });
             if (!response.ok){

@@ -25,7 +25,7 @@ export default function Home() {
     const { state, setFilterOptions, setVaultOptions, initFilterOptions, initVaultOptions, filterVaults } = useHomeReducer()
     const snapPoints = useMemo(() => ["90%"], [])
 
-    useHome({initFilterOptions: initFilterOptions, initVaultOptions: initVaultOptions, filterVal: filterVal, filterVaults: filterVaults, setFilterVal: setFilterVal, t: t})
+    useHome({initFilterOptions: initFilterOptions, initVaultOptions: initVaultOptions, filterVal: filterVal, filterVaults: filterVaults, setFilterVal: setFilterVal, t: t, filterOptions: state.filterOptions})
 
     return (
         <MainView style={{ gap: RFValue(34)}}>

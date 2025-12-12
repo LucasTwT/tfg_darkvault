@@ -9,10 +9,11 @@ export const palette = {
     darkmode500: "#130A1B", // bg Darkmode on
 
     neutral50: "#F5F3F7", // labels darkmode on
+    neutral100: "#ebe7ef",
     neutral200: "#D7CFDE", // bg Darkmode off
     neutral300: "#cdc3d6", // placeholders darkmode on
     neutral500: "#AF9FBD", // icons Darkmode on
-    neutral500a: "rgba(175, 159, 189, 1)",
+    neutral500a: "rgba(175, 159, 189, .3)",
     neutral600: "#846B9A", // placeholders darkmode off     
     neutral800: "#584767", // placeholders darkmode off     
     neutral900: "#42354D", // Labels darkmode off
@@ -22,7 +23,7 @@ export const palette = {
     primary100a: "rgba(223, 193, 251, .5)", // titles Darkmode on
     primary200: "#AF9FBD", // Button texts darkmode on
     primary800: "#560B9B", // titles Darkmode off and stroke darkmode off
-    primary800a: "rgba(86, 11, 155, .8)",
+    primary800a: "rgba(86, 11, 155, .25)",
     primary600: "#8111E8", // Stroke Darkmode on
     primary600a: "rgba(129, 17, 232, .16)",
     primary700a: "rgba(107, 14, 194, 1)",

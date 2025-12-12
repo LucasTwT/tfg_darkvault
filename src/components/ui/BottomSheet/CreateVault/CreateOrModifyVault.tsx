@@ -39,7 +39,11 @@ export function CreateOrModifyVault ({vault} : {vault?: Vault}) {
                 </View>
                 <CustomInputText 
                     bgColor={theme.bottomActionSheet.background} 
-                    label={t("create.vault.vaultNameField.label")} placeholder={t("create.vault.vaultNameField.placeholder")}  input={state.vaultPreview.name} setInput={changeVaultFields} error={state.error.name}
+                    label={t("create.vault.vaultNameField.label")}
+                    placeholder={t("create.vault.vaultNameField.placeholder")}
+                    input={state.vaultPreview.name}
+                    setInput={changeVaultFields}
+                    error={state.error.name}
                     setError={setVaultError} 
                     field={"name"}  
                     t={t} 

@@ -15,13 +15,13 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const systemScheme = useColorScheme()
-  const { settings, updateRefreshToken, updateAccessToken, updateSettings } = useGlobalStore()
+  const { settings } = useGlobalStore()
   const [loading, setLoading] = useState(true);
 
-  useInit({ updateAccessToken, updateRefreshToken, updateSettings, setLoading })
+  useInit({ setLoading: setLoading })
 
   useEffect(() => {
-    i18n.changeLanguage("es");
+    i18n.changeLanguage("en");
   }, [settings.lang])
 
   const [fontsLoaded] = useFonts({

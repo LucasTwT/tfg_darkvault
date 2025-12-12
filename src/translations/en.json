@@ -67,14 +67,54 @@
           "all": "all",
           "byName": "Filter by vault name",
           "byDate": "Filter by creation date"
-        },
-        "vaults": {
-          "modalOptions": {
-            "modify": "Modify",
-            "show": "Show",
-            "delete": "Delete"
-          }
         }
+      },
+      "vaults": {
+        "modalOptions": {
+          "modify": "Modify",
+          "show": "Show",
+          "delete": "Delete"
+        }
+      }
+    }
+  },
+  "create": {
+    "bottomSheetCreate": {
+      "vault": {
+        "title": "Vaults",
+        "description": "Create a new vault"
+      },
+      "login": {
+        "title": "Login",
+        "description": "Create a new login"
+      },
+      "file": {
+        "title": "File",
+        "description": "Encrypt a file"
+      }
+    },
+    "vault": {
+      "title": "New vault",
+      "vaultNameField": {
+        "label": "Name",
+        "placeholder": "Default name"
+      },
+      "validations": {
+        "vaultNameRequired": "The vault name is required",
+        "vaultNameAlreadyExist": "There is already a vault with that name"
+      }
+    }
+  },
+  "modify": {
+    "vault": {
+      "title": "Update vault",
+      "vaultNameField": {
+        "label": "Name",
+        "placeholder": "Default name"
+      },
+      "validations": {
+        "vaultNameRequired": "The vault name is required",
+        "vaultNameAlreadyExist": "There is already a vault with that name"
       }
     }
   }

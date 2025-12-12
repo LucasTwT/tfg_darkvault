@@ -15,6 +15,7 @@ export function BottomSheetCreate () {
     const { openSheet } = useBottomSheetStore()
     const styles = theme.bottomActionSheet
     const snapPoints = useMemo(() => ["90%"], [])
+    const urlImg = theme.dark ? require("@/src/assets/images/vaultIcon.png") : require("@/src/assets/images/VaultIconBackgroundWhite.png") 
     return (
             <BottomSheetView style={{ gap: RFValue(30) }}>
                 <BottomSheetView style={{ flex: 1, alignItems: "center" }}>
@@ -22,7 +23,7 @@ export function BottomSheetCreate () {
                 </BottomSheetView>
                 <BottomSheetView style={{ padding: RFValue(20) }}>
                     <TouchableOpacity onPress={() => openSheet(<CreateOrModifyVault/>, {dynamicSizing: false, snapPoints: snapPoints, handleComponent: HandleComponent}, {btnTxt: "Create vault", status: false})}>
-                        <BottomSheetElement actionName={t("create.bottomSheetCreate.vault.title")} description={t("create.bottomSheetCreate.vault.description")} image={require("@/src/assets/images/vaultIcon.png")} color={styles.icColor} />
+                        <BottomSheetElement actionName={t("create.bottomSheetCreate.vault.title")} description={t("create.bottomSheetCreate.vault.description")} image={urlImg} color={styles.icColor} />
                     </TouchableOpacity>
                     <BottomSheetElement actionName={t("create.bottomSheetCreate.login.title")} description={t("create.bottomSheetCreate.login.description")} icon={"user"} color={styles.icColor} />
                     <BottomSheetElement actionName={t("create.bottomSheetCreate.file.title")} description={t("create.bottomSheetCreate.file.description")} icon={"file"} color={styles.icColor} />

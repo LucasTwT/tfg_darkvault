@@ -1,12 +1,12 @@
+import { apiFetch } from "@/src/utils/helper/apiFetch";
 import { IP } from "../constants/constants";
 
-export async function getSetttings(access_token: string) {
+export async function getSetttings() {
        try {
-            const response = await fetch(`http://${IP}:8000/settings/get`, {
+            const response = await apiFetch(`http://${IP}:8000/settings/get`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${access_token}`
                 },
             });
             if (!response.ok){
