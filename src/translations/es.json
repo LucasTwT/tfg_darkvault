@@ -53,6 +53,14 @@
           "opc2": "Crear cuenta"
         }
       }
+    },
+    "verifyMasterPassword": {
+      "title": "Contraseña maestra",
+      "btnTxt": "Verificar contraseña",
+      "masterPasswordField": {
+        "label": "Contraseña",
+        "placeholder": "Introduce tu contraseña"
+      }
     }
   },
   "tabs": {
@@ -80,6 +88,7 @@
   },
   "create": {
     "bottomSheetCreate": {
+      "title": "Crear",
       "vault": {
         "title": "Bóvedas",
         "description": "Crear una nueva bóveda"
@@ -95,6 +104,7 @@
     },
     "vault": {
       "title": "Nueva bóveda",
+      "btnTxt": "Crear bóveda",
       "vaultNameField": {
         "label": "Nombre",
         "placeholder": "Nombre por defecto"
@@ -108,6 +118,7 @@
   "modify": {
     "vault": {
       "title": "Actualizar bóveda",
+      "btnTxt": "Actualizar bóveda",
       "vaultNameField": {
         "label": "Nombre",
         "placeholder": "Nombre por defecto"

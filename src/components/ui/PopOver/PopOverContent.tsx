@@ -7,16 +7,20 @@ import { useTheme } from "styled-components/native";
 import { CreateOrModifyVault } from "../BottomSheet/CreateVault/CreateOrModifyVault";
 import { Dispatch, SetStateAction, useMemo } from "react";
 import HandleComponent from "../BottomSheet/HandleComponent";
+import { MasterPasswordForm } from "../BottomSheet/MasterPasswordForm/MasterPasswordForm";
+import { useTranslation } from "react-i18next";
 
 export function PopOverContent({ filterOptions, setFilterOptions, vault, setShowPopover }: { filterOptions: FilterOption[], setFilterOptions: (payload: number) => void, vault?: Vault, setShowPopover?: Dispatch<SetStateAction<boolean>> }) {
   const theme = useTheme()
+  const { t } = useTranslation()
   const { openSheet } = useBottomSheetStore()
   const snapPoints = useMemo(() => ["90%"], [])
 
   const handlePress = ({ idx, action }: { idx: number, action: "show" | "modify" | "delete" }) => {
     setFilterOptions(idx)
-    if (action === "modify") openSheet(<CreateOrModifyVault vault={vault} />, { dynamicSizing: false, snapPoints: snapPoints, handleComponent: HandleComponent }, { btnTxt: "Update vault", status: false })
-    if (setShowPopover) setShowPopover(false)
+    if (action === "modify") openSheet(<CreateOrModifyVault vault={vault} />, { dynamicSizing: false, snapPoints: snapPoints, handleComponent: HandleComponent }, { btnTxt: t("modify.vault.btnTxt"), status: false })
+    if (action === "delete") openSheet(<MasterPasswordForm/>,  {handleComponent: HandleComponent}, {btnTxt: t("auth.verifyMasterPassword.btnTxt"), status: false})
+    setShowPopover && setShowPopover(false)
   }
   return (
     <View style={{ width: "100%", borderRadius: RFValue(15), gap: RFValue(10), padding: RFValue(5), backgroundColor: theme.popOver.background, borderWidth: .5, borderColor: theme.popOver.borderColor }}>

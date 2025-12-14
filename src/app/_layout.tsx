@@ -21,7 +21,7 @@ export default function RootLayout() {
   useInit({ setLoading: setLoading })
 
   useEffect(() => {
-    i18n.changeLanguage("en");
+    i18n.changeLanguage("es");
   }, [settings.lang])
 
   const [fontsLoaded] = useFonts({
