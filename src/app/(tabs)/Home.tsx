@@ -40,7 +40,7 @@ export default function Home() {
   selectedVault
 
     useHome({ initFilterOptions: initFilterOptions, initVaultOptions: initVaultOptions, filterVal: filterVal, filterVaults: filterVaults, setFilterVal: setFilterVal, t: t, filterOptions: state.filterOptions })
-    useLoadPopover()
+    // useLoadPopover()
     return (
         <MainView style={{ gap: RFValue(34) }}>
             <View style={{ width: "100%", height: RFValue(50), alignItems: "flex-start" }}>
