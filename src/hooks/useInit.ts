@@ -3,12 +3,16 @@ import { getSetttings } from "../services/api/User/getSettings";
 import { router } from "expo-router";
 import { getSensitiveData } from "../services/crypto/functions/hash";
 import { useGlobalStore } from "../store/globalStore";
-
+import { UserSettings } from "../store/globalStoreTypes";
 export function useInit({ setLoading }: { setLoading: Dispatch<SetStateAction<boolean>> }) {
   const { updateRefreshToken, updateSettings } = useGlobalStore.getState()
   useEffect(() => {
-    async function init() {
+    init(updateRefreshToken, updateSettings, setLoading)
+  }, []);
+}
+async function init(updateRefreshToken: (newRefreshToken: string) => void, updateSettings: (newSettings: UserSettings) => void, setLoading:  Dispatch<SetStateAction<boolean>>) {
       try {
+        
         const data = await getSensitiveData()
         if (data) {
           const { refresh_token } = data
@@ -18,16 +22,13 @@ export function useInit({ setLoading }: { setLoading: Dispatch<SetStateAction<bo
             updateSettings(settings_response.response["settings"])
             router.replace({ pathname: "/(tabs)/Home", params: { email: settings_response.response["email"] } })
           } else {
-            router.replace("/(Auth)/Login")
+            router.push("/(Auth)/Login")
           }
         } else {
-          router.replace("/(Auth)/Register")
+          router.push("/(Auth)/Register")
         }
       } catch (e) {
       } finally {
         setLoading(false)
       }
     }
-    init()
-  }, []);
-}

@@ -11,6 +11,7 @@ export interface FilterOption {
     tags: keyof Vault
 }
 
+
 export interface Option {
     name: string,
     status: boolean,
@@ -37,7 +38,7 @@ export interface Colors {
 
 export type HomeAction = 
     | {type: "SET_FILTER_OPTIONS", payload: {index: number}}
-    | {type: "SET_VAULT_OPTIONS", payload: {index: number}}
+    | {type: "SET_VAULT_OPTIONS", payload: {tag:  "show" | "modify" | "delete", value: boolean}}
     | {type: "INIT_FILTER_OPTIONS", payload: {filterOptions: FilterOption[]}}
     | {type: "INIT_VAULT_OPTIONS", payload: {vaultOptions: Option[]}}
     | {type: "FILTER_VAULTS", payload: {vaults: Vault[], inputValue: string}}

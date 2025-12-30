@@ -16,9 +16,6 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const systemScheme = useColorScheme()
   const { settings } = useGlobalStore()
-  const [loading, setLoading] = useState(true);
-
-  useInit({ setLoading: setLoading })
 
   useEffect(() => {
     i18n.changeLanguage("es");
@@ -36,7 +33,7 @@ export default function RootLayout() {
 
   const theme = getTheme(settings, systemScheme)
 
-  if (!fontsLoaded && loading) {
+  if (!fontsLoaded ) {
     return <SplashView theme={theme}/>
   }
 

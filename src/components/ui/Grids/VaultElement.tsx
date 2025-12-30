@@ -1,16 +1,18 @@
 import { Vault } from "@/src/reducers/Home/useHome.d";
-import { Text, TouchableOpacity, View } from "react-native";
+import { InteractionManager, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "../styles";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components/native";
 import Foundation from "@expo/vector-icons/Foundation";
 import Feather from "@expo/vector-icons/Feather";
-import { Dispatch, SetStateAction } from "react";
+import { useRef } from "react";
+import { usePopoverStore } from "@/src/store/usePopoverStore";
 
-export function VaultElement({ vault, showPopover, sourceRef }: { vault: Vault, showPopover: Dispatch<SetStateAction<boolean>>, sourceRef?: any }) {
+export function VaultElement({ vault }: { vault: Vault }) {
     const theme = useTheme();
-
-    return (
+    const popOverRef = useRef<View>(null)
+    const { setAnchorRef, changeVisible, setSelectedVault } = usePopoverStore()
+    return ( 
         <View
             style={[
                 styles.container,
@@ -41,10 +43,16 @@ export function VaultElement({ vault, showPopover, sourceRef }: { vault: Vault, 
             >
                 {vault.name}
             </Text>
-            <View>
+            <View ref={popOverRef}>
                 <TouchableOpacity
-                    ref={sourceRef}
-                    onPress={showPopover ? () => showPopover(true) : () => { }}
+                    onPress={() => {
+                        setSelectedVault(vault)
+                        setAnchorRef(popOverRef)
+                        InteractionManager.runAfterInteractions(() => {
+                        changeVisible(true)
+                        })
+
+                    }}
                 >
                     <Feather
                         color={theme.grid.element.icColor}

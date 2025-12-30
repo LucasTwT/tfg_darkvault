@@ -8,7 +8,6 @@ import { useState } from "react";
 import { View, Image, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MainView, CustomScrollView, TextTitle, FormContainer } from "../../styles/auth/styles";
-import { useGlobalStore } from "@/src/store/globalStore";
 import { useCreateUser } from "@/src/hooks/Auth/useCreateUser";
 import { useTranslation } from 'react-i18next';
 import { useAlert } from "@/src/hooks/useAlert";
@@ -19,17 +18,14 @@ export default function Register() {
 
   const {state, setUserdata, setErrors, setRequestError } = useRegisterReducer()
   const [pressed, setPressed] = useState(false)
-
-  const { settings, updateAccessToken, updateAuthKey, updateRefreshToken } = useGlobalStore()
   const theme = useTheme()
   const imgUrl = theme.dark ?  require("@/src/assets/images/iconBlackBackground5.png") : require("@/src/assets/images/iconWhiteBackground.png")
-  useCreateUser(state, settings, pressed, setPressed, setRequestError, updateAccessToken, updateAuthKey, updateRefreshToken)
   const { t } = useTranslation()
+  useCreateUser(state, pressed, setPressed, setRequestError)
   useAlert({title: state.requestError.title, msg: state.requestError.msg, 
     buttons: [{text: t("auth.register.requestErrors.error409.opc1"), style: "cancel"}, 
     {text: t("auth.register.requestErrors.error409.opc2"), style: "cancel", onPress: () => router.push("/(Auth)/Register")}], 
     input: state.requestError, validationFun: setRequestError})
-
   return (
     <MainView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}>
       <View style={{ flex: 1, gap: RFValue(25) }}>

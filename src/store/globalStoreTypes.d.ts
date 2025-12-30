@@ -1,14 +1,25 @@
-import { Argon2Result } from "react-native-argon2";
+import sodium from "react-native-libsodium";
 
 export interface GlobalState {
+    // User settings
     settings: userSettings,
+    updateSettings: (newSettings: UserSettings) => void,
+    // Tokens
     access_token: string,
     refresh_token: string,
-    auth_key: Argon2Result,
-    updateSettings: (newSettings: UserSettings) => void,
     updateAccessToken: (newAccessToken: string) => void,
     updateRefreshToken: (newRefreshToken: string) => void,
-    updateAuthKey: (newAuthKey: Argon2Result) => void,
+    // crypto
+    cryptoContext?: CryptoContext,
+    updateCryptoContext: (newCryptoCtx: CryptoContext) => void,
+    canSign: () => boolean,
+    clearKeys: () => void
+}
+
+export interface CryptoContext {
+    vaultKey: Uint8Array<ArrayBufferLike>,
+    authKey: Uint8Array<ArrayBufferLike>,
+    signingKeys: sodium.KeyPair,
 }
 
 export interface UserSettings {

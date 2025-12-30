@@ -2,7 +2,7 @@ import { Option, Vault } from "@/src/reducers/Home/useHome.d";
 import { FlashList } from "@shopify/flash-list";
 import { RFValue } from "react-native-responsive-fontsize";
 import { View } from "react-native";
-import { VaultPopoverItem } from "./VaultPopOverItem";
+import { VaultElement } from "./VaultElement";
 
 export function VaultGrid({ data, vaultOptions, setVaultOptions }: { data: Vault[], vaultOptions: Option[], setVaultOptions: (payload: number) => void }) {
     return (
@@ -14,7 +14,9 @@ export function VaultGrid({ data, vaultOptions, setVaultOptions }: { data: Vault
                     style={{height: "100%", width: "100%"}}
                     data={data}
                     renderItem={({ item }) => (
-                        <VaultPopoverItem item={item} setVaultOptions={setVaultOptions} vaultOptions={vaultOptions} />
+                        <VaultElement
+                                    vault={item}
+                            />
                     )}
                 />
         </View>

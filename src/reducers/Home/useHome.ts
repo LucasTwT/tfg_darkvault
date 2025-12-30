@@ -30,7 +30,10 @@ function reducer (state: HomeState, action: HomeAction): HomeState {
             }
         }
         case "SET_VAULT_OPTIONS": {
-            const vaultOptions: FilterOption[] = setOptions(state.vaultOptions, payload.index)
+            const vaultOptions: FilterOption[] = state.vaultOptions.map((opt) => {
+                if (opt.tags === payload.tag) opt.status = payload.value
+                return opt
+            })
             return {
                 ...state,
                 vaultOptions: vaultOptions
@@ -85,7 +88,7 @@ function filterByString(options: FilterOption[], vaults: Vault[], inputValue: st
 export function useHomeReducer () {
     const [state, dispatch] = useReducer(reducer, initialState)
     const setFilterOptions = (payload: number) => dispatch({type: "SET_FILTER_OPTIONS", payload: {index: payload}}) 
-    const setVaultOptions = (payload: number) => dispatch({type: "SET_VAULT_OPTIONS", payload: {index: payload}}) 
+    const setVaultOptions = (payload: {tag:  "show" | "modify" | "delete", value: boolean}) => dispatch({type: "SET_VAULT_OPTIONS", payload: {tag: payload.tag, value: payload.value}}) 
     const initFilterOptions = (payload: FilterOption[]) => dispatch({type: "INIT_FILTER_OPTIONS", payload: {filterOptions: payload}})
     const initVaultOptions = (payload: Option[]) => dispatch({type: "INIT_VAULT_OPTIONS", payload: {vaultOptions: payload}})
     const filterVaults = (payload: {vaults: Vault[], inputValue: string}) => dispatch({type: "FILTER_VAULTS", payload: payload})

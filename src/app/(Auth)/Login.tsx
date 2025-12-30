@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { View, Image, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MainView, TextTitle, FormContainer, ViewContainer } from "../../styles/auth/styles";
-import { useGlobalStore } from "@/src/store/globalStore";
 import { useTranslation } from 'react-i18next';
 import { useAlert } from "@/src/hooks/useAlert";
 import { router, useLocalSearchParams } from "expo-router";
@@ -19,10 +18,9 @@ export default function Login() {
   const { email } = useLocalSearchParams();
   const { state, setUserdata, setErrors, setRequestError } = useLoginReducer()
   const [pressed, setPressed] = useState(false)
-  const { updateAccessToken, updateAuthKey, updateRefreshToken } = useGlobalStore()
   const theme = useTheme()
   const imgUrl = theme.dark ? require("@/src/assets/images/iconBlackBackground5.png") : require("@/src/assets/images/iconWhiteBackground.png")
-  useLoginUser(state, pressed, setPressed, setRequestError, updateAccessToken, updateAuthKey, updateRefreshToken)
+  useLoginUser(state, pressed, setPressed, setRequestError)
   const { t } = useTranslation()
 
   useEffect(() => {

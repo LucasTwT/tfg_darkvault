@@ -1,33 +1,38 @@
 import { useEffect } from "react"
-import { getSalt, hashMasterPassword, saveSensitiveDate } from "@/src/services/crypto/functions/hash"
+import { signChallenge, saveSensitiveData, regenerateKeys } from "@/src/services/crypto/functions/hash"
 import { LoginState } from "@/src/reducers/Auth/useLogin.d";
-import { RequestError } from "@/src/reducers/Auth/useRegister";
-import { Argon2Result } from "react-native-argon2";
-import { loginUser } from "@/src/services/api/Auth/loginUser";
+import { RequestError } from "@/src/reducers/Auth/useRegister.d";
+import { finishLogin } from "@/src/services/api/Auth/loginUser";
+import { useGlobalStore } from "@/src/store/globalStore";
+import { loginStart } from "@/src/services/api/Auth/loginStart";
+import { router } from "expo-router";
 
-export  const useLoginUser = (state: LoginState, pressed: boolean, setPressed: React.Dispatch<React.SetStateAction<boolean>>, setRequestError: (payload: RequestError) => void, updateAccessToken: (newAccessToken: string) => void, updateAuthKey:(newAuthKey: Argon2Result) => void, updateRefreshToken: (newRefreshToken: string) => void) => {
+export const useLoginUser = (state: LoginState, pressed: boolean, setPressed: React.Dispatch<React.SetStateAction<boolean>>, setRequestError: (payload: RequestError) => void) => {
+    const { updateAccessToken, updateRefreshToken } = useGlobalStore()
     useEffect(() => {
-      const { identifier, password } = state.userdata
-      if ((state.errors.identifier === "" && state.errors.password === "") && (password !== "" && identifier !== "")) {
-         getSalt(identifier, "login").then((salt) => {
-            if(salt) {
-                hashMasterPassword(password, salt).then(({hash, salt}) => {
-                    loginUser(identifier, hash.encodedHash).then(({response, status}) => {
-                        if(status){
-                            updateAccessToken(response["access_token"])
-                            updateAuthKey(hash)
-
-                            saveSensitiveDate(salt, response["refresh_token"])
-                            updateRefreshToken(response["refresh_token"])
-                        }else{
-                            setRequestError({title: "Error", msg: response.detail})
+        const { identifier, password } = state.userdata
+        if ((state.errors.identifier === "" && state.errors.password === "") && (password !== "" && identifier !== "")) {
+            loginStart(identifier).then(({ response, status }) => {
+                if (status) {
+                    regenerateKeys(password, response["salt"], response["kdf_params"]).then(() => {
+                        const signature = signChallenge(response["challenge"])
+                        if (signature) {
+                            finishLogin(identifier, signature).then(({ response, status }) => {
+                                if (status) {
+                                    updateAccessToken(response["access_token"])
+                                    saveSensitiveData(response["salt"], response["refresh_token"])
+                                    updateRefreshToken(response["refresh_token"])
+                                    router.push("/(tabs)/Home")
+                                } else {
+                                    setRequestError({ title: "Error", msg: response.detail })
+                                }
+                            })
                         }
                     })
-                })
-            }else {
-                setRequestError({title: "Error", msg: "Wrong email or username"})
-            }
-         })
-      }
+                } else {
+                    setRequestError({ title: "Error", msg: "Wrong email or username" })
+                }
+            })
+        }
     }, [pressed, setPressed])
-  }
+}
