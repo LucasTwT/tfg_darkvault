@@ -25,6 +25,14 @@ export const DEFAULT_COLORS: Colors[] = [
     {bgColor: "rgba(131, 144, 250, .25)", icColor: "rgb(131, 144, 250)"},
 ]
 
+export const RANDOM_OPTIONS = [
+  { label: "Include uppercase", field: "includeUppercase" },
+  { label: "Include numbers", field: "includeNumbers" },
+  { label: "Include symbols", field: "includeSymbols" },
+  { label: "Avoid ambiguous", field: "avoidAmbiguous" },
+  { label: "Allow repeating", field: "allowRepeating" },
+] as const;
+
 export const DARK_FILTER_ICON = `<svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <path d="M21 1H1L9 10.46V17L13 19V10.46L21 1Z" stroke="url(#pattern0_310_1641)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <defs>

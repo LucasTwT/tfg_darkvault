@@ -19,22 +19,29 @@ export function useCreateVault({vault, setError, modify} : {vault: Vault, setErr
     }, [vault.name, userVaults, modify]);
 
   useEffect(() => {
-    if (!contentHandle || modify) return;
+  if (!contentHandle || modify) return;
 
-    const error = validateVaultName(vault.name, t, userVaults);
-    setError(error);
+  const error = validateVaultName(vault.name, t, userVaults);
+  setError(error);
 
-    if (error !== "") return;
+  if (error !== "") return;
 
-    requestCreateVault(vault).then(({ response, status }) => {
-      if (status === 201) {
-         if (contentHandle?.status){
-            getVaults().then(({ response, status }) => {
-                if (status === 200)
-                    initUserVaults(response.vaults)
-            })
+  const createBtn = contentHandle.buttons.find(
+    btn => btn.action === "add"
+  );
+
+  if (!createBtn?.status) return;
+
+  requestCreateVault(vault).then(({ response, status }) => {
+    if (status === 201) {
+      getVaults().then(({ response, status }) => {
+        if (status === 200) {
+          initUserVaults(response.vaults)
         }
-      }
-    });
-  }, [contentHandle, modify]);
+      });
+    }
+  });
+
+}, [contentHandle, modify]);
+
 }  

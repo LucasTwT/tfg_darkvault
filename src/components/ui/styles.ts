@@ -1,5 +1,5 @@
 import { palette } from "@/src/Theme/colors";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
@@ -85,4 +85,19 @@ export const ButtonText = styled.Text`
   padding-horizontal: ${RFValue(10)}px;
   font-size: ${RFValue(20)}px;
   color: ${({ theme }) => theme.buttons.text};
+`;
+
+export const PasswordText = styled.Text`
+  font-family: ${Platform.select({
+    ios: "Menlo",
+    android: "monospace",
+  })};
+
+  font-size: ${RFValue(14)}px;
+  letter-spacing: 1.5px;
+
+  color: #d7c9ff;
+  text-align: center;
+
+  line-height: ${RFValue(22)}px;
 `;

@@ -16,6 +16,7 @@ import HandleComponent from "@/src/components/ui/BottomSheet/HandleComponent";
 import { useHome } from "@/src/hooks/Home/useHome";
 import { usePopoverStore } from "@/src/store/usePopoverStore";
 import { useLoadPopover } from "@/src/hooks/useLoadPopover";
+import { CustomSlider } from "@/src/components/ui/Slider/CustomSlider";
 
 /*
     Errores:
@@ -60,7 +61,7 @@ export default function Home() {
                         )}>
                         <PopOverContent filterOptions={state.filterOptions} setFilterOptions={setFilterOptions} />
                     </Popover>
-                    <CustomIconButton icon="plus" onPress={() => { openSheet(<CreateOrModifyVault />, { dynamicSizing: false, snapPoints: snapPoints, handleComponent: HandleComponent }, { btnTxt: "Create vault", status: false }) }} endColor={theme.colors.background} />
+                    <CustomIconButton icon="plus" onPress={() => { openSheet(<CreateOrModifyVault />, { dynamicSizing: false, snapPoints: snapPoints, handleComponent: HandleComponent }, {buttons: [{btnTxt: t("create.vault.btnTxt"), status: false, action: "add"}]}) }} endColor={theme.colors.background} />
                 </View>
                 {
                     state.filterData.length > 0 ? <VaultGrid data={state.filterData} vaultOptions={state.vaultOptions} setVaultOptions={setVaultOptions} />

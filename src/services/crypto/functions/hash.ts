@@ -13,7 +13,7 @@ export async function regenerateKeys(masterPassword: string, salt: string, kdfPa
     const vaultKey = deriveKey(hash.rawHash, "VAULT")
     const authKey = deriveKey(hash.rawHash, "AUTH")
     const keys = keypairFromSeed(authKey)
-    console.log("Vault key", vaultKey, "AuthKey", "PRIVATE_KEY", keys.privateKey)
+    console.log("Vault key", "AuthKey", "PRIVATE_KEY", keys.privateKey)
     updateCryptoContext({ authKey: authKey, vaultKey: vaultKey, signingKeys: keys })
 }
 

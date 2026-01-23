@@ -105,7 +105,9 @@ export const darkTheme = {
         ic: palette.neutral500,
         error: palette.error400 
     },
-
+    switchButton: {
+        text: palette.neutral300
+    },
     buttons: {
         text: palette.primary200
     },

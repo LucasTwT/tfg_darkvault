@@ -7,11 +7,13 @@ import { useBottomSheetStore } from "@/src/store/useBottomSheet";
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useLoadBottomSheetContent } from "@/src/hooks/useLoadBottomSheetContent";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
+import { useOverlaySheetStore } from "@/src/store/useOverLaySheet";
 
 export default function BottomTabBarLayout() {
     const theme = useTheme()
     const { bottomSheetRef, content , props} = useBottomSheetStore()
+    const { ref, content: overlayContent, props: overlayProps } = useOverlaySheetStore()
     const styles = theme.bottomActionSheet
     const renderBackdrop = useCallback(
 		(props) => (
@@ -25,15 +27,20 @@ export default function BottomTabBarLayout() {
 		[]
 	);
     useLoadBottomSheetContent()
-
+    
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
                 <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <MyCustomGlassTabBar {...props} />} />
             </SafeAreaView>
+            <>
             <BottomSheet enableDynamicSizing={props.dynamicSizing} index={-1}  snapPoints={props.snapPoints} ref={bottomSheetRef} enablePanDownToClose backgroundStyle={{ backgroundColor: styles.background }} handleIndicatorStyle={{ backgroundColor: styles.handleIndicatorColor, borderRadius: RFValue(3), width: RFValue(50) }} handleComponent={props.handleComponent} backdropComponent={renderBackdrop} >
                 {content ? content : null}
             </BottomSheet>
+            <BottomSheet enableContentPanningGesture={overlayProps.enableContentPanningGesture} enableDynamicSizing={overlayProps.dynamicSizing} index={-1}  snapPoints={overlayProps.snapPoints} ref={ref} enablePanDownToClose backgroundStyle={{ backgroundColor: styles.background }} handleIndicatorStyle={{ backgroundColor: styles.handleIndicatorColor, borderRadius: RFValue(3), width: RFValue(50) }} handleComponent={overlayProps.handleComponent} backdropComponent={renderBackdrop}>
+                { overlayContent ? overlayContent : null}
+            </BottomSheet>
+            </>
         </GestureHandlerRootView>
     )
 }

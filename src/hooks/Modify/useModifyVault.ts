@@ -25,13 +25,18 @@ export function useModifyVault ({modify, vault, updatedVault, initVault, t, setE
 
     // Send to server
     useEffect(() => {
-        if (!modify || !updatedVault || !contentHandle?.status) return
+        if (!contentHandle || !modify || !updatedVault ) return
+
+        const modifyBtn = contentHandle.buttons.find(
+            btn => btn.action === "modify"
+        );
+
+        if (!modifyBtn?.status) return
         const error = validateModifyVaultName(updatedVault, t, userVaults)
         setError({field: "name", value: error})        
         if (error !== "") return
 
         requestModifyVault(updatedVault).then(({response, status}) => {
-            console.log(updatedVault)
             if (status === 202) modifyVault(updatedVault)
         })
 

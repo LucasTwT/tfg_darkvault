@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components/native";
-import { PasswordField } from "./PasswordField";
+import { PasswordField } from "../InputText/PasswordField";
 import { useMasterPassword } from "@/src/hooks/Auth/useMasterPassword";
 import { Argon2Options } from "react-native-argon2";
 import { useDeleteVault } from "@/src/hooks/Delete/useDeleteVault";

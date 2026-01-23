@@ -102,6 +102,10 @@
         "description": "Encriptrar un archivo"
       }
     },
+
+    "generateKeys": {
+      "title": "Generar contraseña"
+    },
     "vault": {
       "title": "Nueva bóveda",
       "btnTxt": "Crear bóveda",
@@ -112,6 +116,40 @@
       "validations": {
         "vaultNameRequired": "El nombre de la bóveda es obligatorio",
         "vaultNameAlreadyExist": "Ya hay una bóveda con ese nombre"
+      }
+    },
+    "login": {
+      "title": "Crear inicio sesión",
+      "btnTxt": "guardar",
+      "loginForm": {
+        "titleField": {
+          "label": "Título",
+          "placeholder": "Introduce el título"
+        },
+        "emailField": {
+          "label": "Correo",
+          "placeholder": "Introduce el correo"
+        },
+        "urlField": {
+          "label": "Url",
+          "placeholder": "Introduce la url"
+        },
+        "noteField": {
+          "label": "Note",
+          "placeholder": "Nota (opcional)"
+        },
+        "passwordField": {
+          "label": "Contraseña",
+          "placeholder": "Introduce la contraseña"
+        },
+        "validations": {
+          "titleRequired": "El titulo es obligatorio",
+          "titleMinLength": "El titulo debe de tener al menos 3 caracteres",
+          "invalidEmail": "El email no es válido.",
+          "invalidUrl": "La URL no es válida",
+          "noteMaxLength": "La nota no puede tener más de 250 caracteres",
+          "passwordRequired": "La contraseña es obligatoria."
+        }
       }
     }
   },
@@ -127,6 +165,16 @@
         "vaultNameRequired": "El nombre de la bóveda es obligatorio",
         "vaultNameAlreadyExist": "Ya hay una bóveda con ese nombre"
       }
+    }
+  },
+  "delete": {
+    "vault": {
+      "btnTxt": "Eliminar bóveda"
+    }
+  },
+  "aux": {
+    "changeVault": {
+      "title": "List of vaults"
     }
   }
 }

@@ -4,21 +4,21 @@ import { StyleProp, Text, TouchableOpacity, View, ViewStyle } from "react-native
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components/native";
-import { useBottomSheetStore } from "@/src/store/useBottomSheet";
+import { useOverlaySheetStore } from "@/src/store/useOverLaySheet";
 
 interface HandleProps extends BottomSheetHandleProps {
     style?: StyleProp<ViewStyle>,
 }
 
-const HandleComponent: React.FC<HandleProps> = ({style}) => {
+const HandleOverlayComponent: React.FC<HandleProps> = ({style}) => {
     const containerStyle = useMemo(() => [style], [style])
     const theme = useTheme()
-    const { closeSheet, contentHandle, changeBtnValue, getHandleButtonsProps } = useBottomSheetStore()
+    const { closeOverlay, contentHandle, changeBtnValue,  getHandleButtonsProps } = useOverlaySheetStore()
     return (
         contentHandle
         ? 
         <View style={[containerStyle, {paddingHorizontal: RFValue(30), paddingVertical: RFValue(10), flexDirection: "row", justifyContent: "space-between"}]}>
-            <TouchableOpacity onPress={() => {closeSheet()}} style={{padding: RFValue(6), borderRadius: RFValue(16), justifyContent: "center", backgroundColor: theme.customHandleComponent.btnClose.background}}>
+            <TouchableOpacity onPress={() => {closeOverlay()}} style={{padding: RFValue(6), borderRadius: RFValue(16), justifyContent: "center", backgroundColor: theme.customHandleComponent.btnClose.background}}>
                 <Ionicons name="close-sharp" size={RFValue(20)} color={theme.customHandleComponent.btnClose.icColor}/>
             </TouchableOpacity>
             <View style={{flexDirection: "row", gap: RFValue(10)}}>
@@ -39,4 +39,4 @@ const HandleComponent: React.FC<HandleProps> = ({style}) => {
 
 }
 
-export default HandleComponent
+export default HandleOverlayComponent

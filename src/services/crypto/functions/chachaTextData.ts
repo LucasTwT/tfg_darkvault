@@ -5,9 +5,8 @@ import { crypto_aead_xchacha20poly1305_ietf_decrypt, from_base64, to_string, ran
 export function decryptXChaCha(
     ciphertext: string,
     nonce: string,
-    keyHex: string
+    keyHex: Uint8Array<ArrayBufferLike>
 ) {
-    const keyUint8 = hexToUint8(keyHex);
     const additionalData = "";
 
     const plaintextBytes = crypto_aead_xchacha20poly1305_ietf_decrypt(
@@ -15,13 +14,13 @@ export function decryptXChaCha(
         from_base64(ciphertext),
         additionalData,
         from_base64(nonce),
-        keyUint8
+        keyHex
     );
 
     return to_string(plaintextBytes);
 }
-export function encryptXChaCha(plaintext: string, key: string) {
-    const keyUnit8 = hexToUint8(key);
+export function encryptXChaCha(plaintext: string, key:  Uint8Array<ArrayBufferLike>) {
+    // const keyUnit8 = hexToUint8(key);
     const messageBytes =  new TextEncoder().encode(plaintext);
 
     const nonce = randombytes_buf(24);
@@ -32,7 +31,7 @@ export function encryptXChaCha(plaintext: string, key: string) {
         addtionalData,
         null,
         nonce,
-        keyUnit8
+        key
     );
 
     return {
