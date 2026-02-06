@@ -1,4 +1,4 @@
-import { useBottomSheetStore } from "@/src/store/useBottomSheet";
+import { useAppStore } from "@/src/store/useAppStore";
 import { ButtonAction, TopButtonProps } from "@/src/store/useBottomSheetTypes";
 import Feather from "@expo/vector-icons/Feather";
 import Foundation from "@expo/vector-icons/Foundation";
@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export function TopButton({ id, getHandleButtonsProps, changeBtnValue } : { id: ButtonAction, getHandleButtonProps: (id: ButtonAction) => TopButtonProps, changeBtnValue: any }) {
+export function TopButton({ id, getHandleButtonsProps, changeBtnValue } : { id: ButtonAction, getHandleButtonsProps: (id: ButtonAction) => TopButtonProps, changeBtnValue: any }) {
     const [props, setProps] = useState<TopButtonProps | false>()
+    const { actualVault } = useAppStore()
     useEffect(() => {
         setProps(getHandleButtonsProps(id))
-
-    }, [ props, getHandleButtonsProps, id])
+    }, [ props, getHandleButtonsProps, id, actualVault])
     return (
         props
             ?

@@ -1,7 +1,6 @@
 import { Vault } from "@/src/reducers/Home/useHome.d";
 import { useAppStore } from "@/src/store/useAppStore";
 import { useBottomSheetStore } from "@/src/store/useBottomSheet";
-import Foundation from "@expo/vector-icons/Foundation";
 import {
   BottomSheetView,
   useBottomSheetScrollableCreator,
@@ -15,11 +14,21 @@ import { useTheme } from "styled-components/native";
 import { BottomSheetElement } from "../BottomSheetElement";
 
 export function ListOfVaults() {
-  const { userVaults } = useAppStore();
+  const { userVaults, setActualVault } = useAppStore();
   const theme = useTheme();
   const { t } = useTranslation();
   const { changeVault } = useBottomSheetStore();
   const BottomSheetScrollable = useBottomSheetScrollableCreator();
+
+  const handlePress = (item: Vault) => {
+    setActualVault(item)
+    changeVault({
+            txt: item.name,
+            txtColor: item.settings.colors.icColor,
+            bgColor: item.settings.colors.bgColor,
+            icLeft: item.settings.icon,
+          })
+  }
 
   const renderItem = useCallback(({ item }: { item: Vault }) => {
     const {
@@ -30,14 +39,7 @@ export function ListOfVaults() {
     return (
       <TouchableOpacity
         activeOpacity={0.75}
-        onPress={() =>
-          changeVault({
-            txt: name,
-            txtColor: colors.icColor,
-            bgColor: colors.bgColor,
-            icLeft: icon,
-          })
-        }
+        onPress={() => handlePress(item) }
       >
         <BottomSheetElement
           actionName={name}

@@ -1,4 +1,3 @@
-import { hexToUint8 } from "./chachaFunctions";
 import { crypto_aead_xchacha20poly1305_ietf_decrypt, from_base64, to_string, randombytes_buf, crypto_aead_xchacha20poly1305_ietf_encrypt, to_base64 } from 'react-native-libsodium'
 
 

@@ -17,8 +17,7 @@ export function CreateLogin() {
   useCreateLogin({state: state, setValue: setLogindata, setError: setErrors})
   const { t } = useTranslation();
   const theme = useTheme();
-
-
+  // const { actualVault } = useAppStore()
   return (
     <BottomSheetScrollView
       contentContainerStyle={{

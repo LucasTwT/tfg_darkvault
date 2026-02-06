@@ -1,4 +1,4 @@
-import BottomSheet, { BottomSheetHandleProps } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetHandleProps, BottomSheetProps } from "@gorhom/bottom-sheet";
 import React, { ReactNode, ComponentType } from "react";
 
 export interface BottomSheetState {
@@ -32,10 +32,11 @@ interface TopButtonProps {
     icRight?: string
 }
 
-type ButtonAction = "add" | "modify" | "delete" | "change"
+type ButtonAction = "add" | "modify" | "delete" | "change" | "verify"
 
 interface SheetProps {
     dynamicSizing?: boolean,
+    enablePanDownToClose?: boolean,
     snapPoints?: (string | number)[] ,
     handleComponent?: React.FC<BottomSheetHandleProps>
     enableContentPanningGesture?: boolean

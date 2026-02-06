@@ -21,7 +21,7 @@ export function BottomSheetCreate() {
   const urlImg = theme.dark
     ? require("@/src/assets/images/vaultIcon.png")
     : require("@/src/assets/images/VaultIconBackgroundWhite.png");
-  const { userVaults } = useAppStore();
+  const { actualVault } = useAppStore();
   return (
     <BottomSheetView style={{ gap: RFValue(30) }}>
       <BottomSheetView style={{ flex: 1, alignItems: "center" }}>
@@ -44,6 +44,8 @@ export function BottomSheetCreate() {
                 dynamicSizing: false,
                 snapPoints: snapPoints,
                 handleComponent: HandleComponent,
+                enablePanDownToClose: true,
+                enableContentPanningGesture: true,  
               },
               {
                 buttons: [
@@ -70,7 +72,7 @@ export function BottomSheetCreate() {
             color={styles.icColor}
           />
         </TouchableOpacity>
-        {userVaults.length > 0 && (
+        {actualVault && (
           <TouchableOpacity
             onPress={() =>
               openSheet(
@@ -78,6 +80,8 @@ export function BottomSheetCreate() {
                 {
                   dynamicSizing: true,
                   handleComponent: HandleComponent,
+                  enablePanDownToClose: true,
+                  enableContentPanningGesture: true,   
                 },
                 {
                   buttons: [
@@ -85,10 +89,10 @@ export function BottomSheetCreate() {
                       content: TopButton,
                       action: "change",
                       props: {
-                        txt: userVaults[0].name,
-                        txtColor: userVaults[0].settings.colors.icColor,
-                        bgColor: userVaults[0].settings.colors.bgColor,
-                        icRight: userVaults[0].settings.icon,
+                        txt: actualVault.name,
+                        txtColor: actualVault.settings.colors.icColor,
+                        bgColor: actualVault.settings.colors.bgColor,
+                        icRight: actualVault.settings.icon,
                       },
                       status: false,
                     },

@@ -49,14 +49,16 @@ export function PopOverContent({
           dynamicSizing: false,
           snapPoints,
           handleComponent: HandleComponent,
+          enablePanDownToClose: true,
+          enableContentPanningGesture: true,
         },
         {
           buttons: [
             {
               content: TopButton,
-              action: "add",
+              action: "modify",
               props: {
-                txt: t("create.login.btnTxt"),
+                txt: t("modify.vault.btnTxt"),
                 txtColor: theme.customHandleComponent.btnAction.textColor,
                 bgColor: theme.customHandleComponent.btnAction.background,
                 icRight: "plus",
@@ -81,68 +83,68 @@ export function PopOverContent({
           closeSheet();
 
           finishDeleteVault(signature, selectedVault.id).then(({ status }) => {
-            if (!status) {
-              openSheet(
-                <MasterPasswordForm
-                  challenge={response.challenge}
-                  salt={response.salt}
-                  kdfParams={response.kdf_params}
-                  vaultId={selectedVault.id}
-                />,
-                {
-                  dynamicSizing: false,
-                  snapPoints,
-                  handleComponent: HandleComponent,
-                },
-                {
-                  buttons: [
-                    {
-                      content: TopButton,
-                      action: "add",
-                      props: {
-                        txt: t("create.login.btnTxt"),
-                        txtColor:
-                          theme.customHandleComponent.btnAction.textColor,
-                        bgColor:
-                          theme.customHandleComponent.btnAction.background,
-                        icRight: "plus",
-                      },
-                      status: false,
-                    },
-                  ],
-                }
-              );
-            }
+            // if (!status) {
+            //   openSheet(
+            //     <MasterPasswordForm
+            //       challenge={response.challenge}
+            //       salt={response.salt}
+            //       kdfParams={response.kdf_params}
+            //       vaultId={selectedVault.id}
+            //     />,
+            //     {
+            //       dynamicSizing: false,
+            //       snapPoints,
+            //       handleComponent: HandleComponent,
+            //     },
+            //     {
+            //       buttons: [
+            //         {
+            //           content: TopButton,
+            //           action: "add",
+            //           props: {
+            //             txt: t("create.login.btnTxt"),
+            //             txtColor:
+            //               theme.customHandleComponent.btnAction.textColor,
+            //             bgColor:
+            //               theme.customHandleComponent.btnAction.background,
+            //             icRight: "plus",
+            //           },
+            //           status: false,
+            //         },
+            //       ],
+            //     }
+            //   );
+            // }
           });
         } else {
-          openSheet(
-            <MasterPasswordForm
-              challenge={response.challenge}
-              salt={response.salt}
-              kdfParams={response.kdf_params}
-              vaultId={selectedVault.id}
-            />,
-            {
-              handleComponent: HandleComponent,
-            },
-            {
-               buttons: [
-                    {
-                      content: TopButton,
-                      action: "add",
-                      props: {
-                        txt: t("create.login.btnTxt"),
-                        txtColor:
-                          theme.customHandleComponent.btnAction.textColor,
-                        bgColor:
-                          theme.customHandleComponent.btnAction.background,
-                        icRight: "plus",
-                      },
-                      status: false,
-                    },
-                  ],
-            }
-          );
+          // openSheet(
+          //   <MasterPasswordForm
+          //     challenge={response.challenge}
+          //     salt={response.salt}
+          //     kdfParams={response.kdf_params}
+          //     vaultId={selectedVault.id}
+          //   />,
+          //   {
+          //     handleComponent: HandleComponent,
+          //   },
+          //   {
+          //      buttons: [
+          //           {
+          //             content: TopButton,
+          //             action: "add",
+          //             props: {
+          //               txt: t("create.login.btnTxt"),
+          //               txtColor:
+          //                 theme.customHandleComponent.btnAction.textColor,
+          //               bgColor:
+          //                 theme.customHandleComponent.btnAction.background,
+          //               icRight: "plus",
+          //             },
+          //             status: false,
+          //           },
+          //         ],
+          //   }
+          // );
         }
       });
     }

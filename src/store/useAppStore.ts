@@ -5,7 +5,8 @@ import { Vault } from "../reducers/Home/useHome.d"
 export const useAppStore = create<AppGlobalState>((set) => {
     return {
         userVaults: [],
-        initUserVaults: (vaults: Vault[]) => set({userVaults: vaults}),
+        actualVault: undefined,
+        initUserVaults: (vaults: Vault[]) => set({userVaults: vaults, actualVault: vaults[0]}),
         addVault: (vault: Vault) => {
             set((prevState) => {
                 const userVaults = [...prevState.userVaults]
@@ -25,6 +26,9 @@ export const useAppStore = create<AppGlobalState>((set) => {
                 })
                 return { userVaults: userVaultsModified }
             })
+        },
+        setActualVault: (vault: Vault) => {
+            set({ actualVault: vault})
         }
     }
 })

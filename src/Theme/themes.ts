@@ -1,3 +1,4 @@
+import { opacity } from "react-native-reanimated/lib/typescript/Colors";
 import { palette } from "./colors";
 
 export const lightTheme = {
@@ -109,7 +110,9 @@ export const darkTheme = {
         text: palette.neutral300
     },
     buttons: {
-        text: palette.primary200
+        text: palette.primary200,
+        background: palette.primary900,
+        opacity: .13,
     },
     icButtons: {
             background: palette.primary900a3,

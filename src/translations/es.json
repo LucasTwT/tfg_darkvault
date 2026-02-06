@@ -54,12 +54,12 @@
         }
       }
     },
-    "verifyMasterPassword": {
-      "title": "Contraseña maestra",
-      "btnTxt": "Verificar contraseña",
+    "lockGate": {
+      "title": "Desencriptar vault",
+      "btnTxt": "desencriptar",
       "masterPasswordField": {
         "label": "Contraseña",
-        "placeholder": "Introduce tu contraseña"
+        "placeholder": "Introduce tu contraseña maestra"
       }
     }
   },

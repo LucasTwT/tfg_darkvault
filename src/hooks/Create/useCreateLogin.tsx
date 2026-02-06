@@ -9,10 +9,11 @@ import { useTheme } from "styled-components/native";
 import { Logindata, LoginState, UpdatePayload } from "@/src/reducers/Create/useCreateLogin.d";
 import { useTranslation } from "react-i18next";
 import { validateLoginForm } from "@/src/utils/helper/validateLoginForm";
-import { decryptXChaCha, encryptXChaCha } from "@/src/services/crypto/functions/chachaTextData";
-import { to_string } from "react-native-libsodium";
-import { regenerateKeys } from "@/src/services/crypto/functions/hash";
+import { encryptXChaCha } from "@/src/services/crypto/functions/chachaTextData";
 import { useGlobalStore } from "@/src/store/globalStore";
+import { loginStart } from "@/src/services/api/Login/createLogin";
+import { useAppStore } from "@/src/store/useAppStore";
+import { CIPHER, VERSION } from "@/src/services/crypto/constants/cipher";
 
 export function useCreateLogin({
   state,
@@ -25,32 +26,33 @@ export function useCreateLogin({
 }) {
   const { contentHandle } = useBottomSheetStore();
   const { openOverlay } = useOverlaySheetStore();
+  const { cryptoContext, canSign } = useGlobalStore()
+  const { actualVault } = useAppStore()
   const theme = useTheme();
   const { t } = useTranslation();
 
   useEffect(() => {
     if (!contentHandle) return;
 
-    const activeButton = contentHandle.buttons.find((b) => b.status);
+    const activeButton = contentHandle.buttons.find((b) => b.status && b.action === "change");
     if (!activeButton) return;
 
-    switch (activeButton.action) {
-      case "change":
         openOverlay(<ListOfVaults />, {
           snapPoints: ["25%", "50%"],
           dynamicSizing: false,
         });
-        break;
 
-      case "add":
-        handleSubmit();
-        break;
-    }
   }, [contentHandle]);
 
   useEffect(() => {
-    if (!state.generateKey) return;
+    if (!contentHandle) return;
+    const activeButton = contentHandle.buttons.find((b) => b.status && b.action === "add");
+    if (!activeButton) return;
+    handleSubmit();
+  }, [contentHandle])
 
+  useEffect(() => {
+    if (!state.generateKey) return;
     openOverlay(
       <GenerateKey setValue={setValue} />,
       {
@@ -85,25 +87,11 @@ export function useCreateLogin({
       return;
     }
     
-    const password = "A01b02c03d04|777" // psw prueba
-    const salt = "Wa9PTLg2fa5zct8iqEfGUw=="
-    const kdf_params = {"hashLength": 32, "iterations": 3, "memory": 131072, "mode": "argon2id", "parallelism": 1}
-    
-    regenerateKeys(password, salt).then(() => {
-      const { cryptoContext } = useGlobalStore.getState()
-      if (!cryptoContext) { console.log("NO crypto ctx") 
-        return
-      } 
-      const { ciphertext, nonce } = encryptXChaCha(JSON.stringify(state.logindata), cryptoContext.vaultKey )
-      console.log("Cipher text: " + ciphertext + "\nNonce: " + nonce)
-      const res = decryptXChaCha(ciphertext, nonce, cryptoContext.vaultKey)
-      console.log(res)
-    
 
-    })
-    
-
-    
+    if (canSign() && cryptoContext && actualVault) {
+            const { ciphertext, nonce } = encryptXChaCha(JSON.stringify(state.logindata), cryptoContext.vaultKey )
+            loginStart({vaultId: actualVault.id , ciphertext: ciphertext, nonce: nonce, cipher: CIPHER, version: VERSION})
+    }
 
   }
 }
